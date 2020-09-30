@@ -32,7 +32,7 @@
                     
                     
                     if($row["email"] == $email && $row["password"] == $pass){
-                        
+                        $x = $row["email"];
                         $find = true;
                         break;
                     //http_response_code(200);
@@ -44,7 +44,7 @@
         } 
         
         if($find){
-            echo "ok";
+            echo "ok" . $x;
         }else{
             echo "email or password is wrong";
         }
