@@ -1,0 +1,108 @@
+<head>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="..\public\css\registration.css">
+<link rel="stylesheet" href="..\public\js\registration.js">
+<link rel="stylesheet" href="..\public\css\buttons.css">
+<link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+
+<style>
+body{
+  background-image: url("../public/images/bee_cells.jpg");
+}
+</style>
+
+</head>
+
+<body>
+    <div class="login-page">
+
+        <div class="form">
+          <form class="register-form">
+            <input type="text" placeholder="name" name="name"/>
+            <input type="password" placeholder="password" name="password"/>
+            <input type="text" placeholder="email address" name="email"/>
+            <button>create</button>
+            <p class="message">Already registered? <a href="#">Sign In</a></p>
+          </form>
+          <form class="login-form" id="form" method="GET">
+            <div style="text-align: left;">
+              
+                <label for="">Email</label>
+                <input type="text" name="email" />
+                <label for="">Password</label>
+                <input type="password" name="password"/>
+                <div id="errore"></div>
+            </div>
+            <input type="submit" placeholder="loogin">
+            <p class="message">Not registered? <a href="./registration.html" style="color:orange">Create an account</a></p>
+          </form>
+        </div>
+      </div>
+</body>
+
+<script>
+  $( document ).ready(function() {
+    
+    $("#form").submit(function(e) {
+
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+        login("./test1.php", $(this).serialize())
+
+
+
+
+        });
+  });
+
+  function login(url , data){
+    $.ajax({
+              type: "GET",
+              url: url,
+              data: data, // serializes the form's elements.
+              success: function(data)
+              {
+                  alert(data); // show response from the php script.
+              }
+            });
+  }
+</script>
+
+<script>
+  $( document ).ready(function() {
+      $("#form").submit(function(e) {
+
+
+          e.preventDefault(); // avoid to execute the actual submit of the form.
+
+          richiesta("./test1.php", $( this ).serialize() )
+
+          }); 
+  });
+
+  function richiesta(url, data){
+      $.ajax({
+              type: "GET",
+              url: url,
+              data: data, // serializes the form's elements.
+              
+              success: function(data)
+              {
+                  console.log(data);
+                  if(data == "ok"){
+
+                      document.getElementById("errore").innerHTML = data;
+                      sessionStorage.setItem("key", "XX");
+                      alert("Succesufly logged");
+                      window.location.href = "./"
+
+                  } else{
+                      document.getElementById("errore").innerHTML = data;
+                  }
+                 
+              }
+              
+          });
+  }
+</script>
