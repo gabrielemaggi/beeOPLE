@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <title>API</title>
+            <head>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            </head>
+        </head>
+
+        <body>
+            <form action="test1.php" id="form">
+                
+                <input type="text" name="email">
+                     <br>
+                     <input type="text" name="nome">
+                    <br>
+                    <input type="text" name="cognome">
+                    <br>
+                    <input type="text" name="username">
+                    <br>
+                    <input type="text" name="password">
+                    <br>
+                    <input type="text" name="password">
+                    <br>
+                    <input type="text" name="city">
+                    <br>
+                    <input type="submit"><br>
+                   
+            </form>
+            <div id="errore"></div>
+        </body>
+
+        <script>
+            $( document ).ready(function() {
+                $("#form").submit(function(e) {
+
+
+                    e.preventDefault(); // avoid to execute the actual submit of the form.
+
+                    richiesta("./test2.php", $( this ).serialize() )
+
+                    }); 
+            });
+
+            function richiesta(url, data){
+                $.ajax({
+                        type: "GET",
+                        url: url,
+                        data: data, // serializes the form's elements.
+                        
+                        success: function(data)
+                        {
+                            console.log(data);
+                            if(data == "ok"){
+
+                                document.getElementById("errore").innerHTML = data;
+                                alert("Succesufly registered");
+                                window.location.href = "./index.html"
+
+                            } else{
+                                document.getElementById("errore").innerHTML = data;
+                            }
+                           
+                        }
+                        
+                    });
+            }
+        </script>
+    </html>
+
+
