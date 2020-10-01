@@ -1,0 +1,133 @@
+
+<!------ Include the above in your HEAD tag ---------->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link rel="stylesheet" href="..\public\chat.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <script>
+            var me = {};
+            var you = {};
+            function formatAMPM(date) {
+                var hours = date.getHours();
+                var minutes = date.getMinutes();
+                var ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12; // the hour '0' should be '12'
+                minutes = minutes < 10 ? '0'+minutes : minutes;
+                var strTime = hours + ':' + minutes + ' ' + ampm;
+                return strTime;
+            }            
+
+            //-- No use time. It is a javaScript effect.
+            function insertChat(who, text, time = 0){
+                var control = "";
+                var date = formatAMPM(new Date());
+                
+                if (who == "me"){
+                    
+                    control = '<li style="width:100%">' +
+                                    '<div class="msj macro">' +
+                                        '<div class="text text-l">' +
+                                            '<p>'+ text +'</p>' +
+                                            '<p><small>'+date+'</small></p>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</li>';                    
+                }else{
+                    control = '<li style="width:100%;">' +
+                                    '<div class="msj-rta macro">' +
+                                        '<div class="text text-r">' +
+                                            '<p>'+text+'</p>' +
+                                            '<p><small>'+date+'</small></p>' +
+                                        '</div>' +
+                                    '<div class="avatar" style="padding:0px 0px 0px 10px !important"></div>' +                                
+                            '</li>';
+                }
+                setTimeout(
+                    function(){                        
+                        $(".chat").append(control);
+
+                    }, time);
+                
+            }
+
+            function resetChat(){
+                $(".chat").empty();
+            }
+
+            $(".mytext").on("keyup", function(e){
+                if (e.which == 13){
+                    var text = $(this).val();
+                    if (text !== ""){
+                        insertChat("me", text);              
+                        $(this).val('');
+                    }
+                }
+            });
+
+            //-- Clear Chat
+            resetChat();
+
+            //-- Print Messages
+            insertChat("me", "Hello", 0);  
+            insertChat("you", "There are some birches!", 1500);
+            insertChat("me", "Oh!", 3500);
+            insertChat("me", "There are many ah trees!",7000);
+            insertChat("you", "There are some Pier Plants here!", 9500);
+            insertChat("you", "Oh thanks", 12000);
+
+        </script>
+        <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                <a class="nav-link" href="profile.html">Profile</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="allergie.html">Allergies</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="map.html">Map</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="">Log out</a>
+                </li>
+            </ul>
+            </div>
+          </nav>
+        <div class="jumbotron" style="background: linear-gradient(-45deg, rgba(255,211,74,1) 0%, rgba(255,178,0,1) 35%, rgba(255,188,0,0.9192051820728291) 100%);">
+            <h1 class="display">Allergies Chatting</h1>
+            <p class="lead">Displaying allergies in <b>Berghem</b></p>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-8 col-sm-offset-4 frame shadow" style="width:100;right: 30px;border-radius: 10px">
+                    <ul class="chat"></ul>
+                    <div>
+                        <div class="msj-rta macro" style="margin:auto">                        
+                            <div class="text text-r" style="background:whitesmoke !important">
+                                <input class="mytext" placeholder="Type a message"/>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2"></div>
+            </div>
+        </div>        
+    </body>
+</html>
+
+
+
+
