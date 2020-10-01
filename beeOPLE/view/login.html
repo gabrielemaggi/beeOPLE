@@ -1,9 +1,12 @@
 <head>
 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="..\public\css\registration.css">
 <link rel="stylesheet" href="..\public\js\registration.js">
 <link rel="stylesheet" href="..\public\css\buttons.css">
 <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">  
 
 <style>
 body{
@@ -14,32 +17,86 @@ body{
 </head>
 
 <body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="./project.html">Project</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./about us.html">About us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./login.html">Login</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
     <div class="login-page">
-      <nav>
-        <ul>
-          <li>Project</li>
-          <li>About Us</li>
-          <li>Login</li>
-        </ul>
-      </nav>
+
         <div class="form">
           <form class="register-form">
-            <input type="text" placeholder="name"/>
-            <input type="password" placeholder="password"/>
-            <input type="text" placeholder="email address"/>
+            <input type="text" placeholder="name" name="name"/>
+            <input type="password" placeholder="password" name="password"/>
+            <input type="text" placeholder="email address" name="email"/>
             <button>create</button>
             <p class="message">Already registered? <a href="#">Sign In</a></p>
           </form>
-          <form class="login-form">
+          <form class="login-form" id="form" method="GET">
             <div style="text-align: left;">
-                <label for="">Username</label>
-                <input type="text" />
+              
+                <label for="" >Email</label>
+                <input type="text" name="email" required />
                 <label for="">Password</label>
-                <input type="password" />
+                <input type="password" name="password" required/>
+                <div id="errore"></div>
             </div>
-            <a href="#" class="button orange">Login</a>
+            <input type="submit" placeholder="loogin">
             <p class="message">Not registered? <a href="./registration.html" style="color:orange">Create an account</a></p>
           </form>
         </div>
       </div>
 </body>
+
+
+
+<script>
+  $( document ).ready(function() {
+      $("#form").submit(function(e) {
+
+
+          e.preventDefault(); // avoid to execute the actual submit of the form.
+
+          richiesta("./test1.php", $( this ).serialize() )
+
+          }); 
+  });
+
+  function richiesta(url, data){
+      $.ajax({
+              type: "GET",
+              url: url,
+              data: data, // serializes the form's elements.
+              
+              success: function(data)
+              {
+                  //console.log(data);
+                  
+                  if( data.includes("ok") ){
+
+                      document.getElementById("errore").innerHTML = data;
+                      sessionStorage.setItem("key", data.substring(2, data.length ) );  
+                      window.location.href = "./profile.html"
+
+                  } else{
+                      document.getElementById("errore").innerHTML = data;
+                  }
+                 
+              }
+              
+          });
+  }
+</script>

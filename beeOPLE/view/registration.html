@@ -1,5 +1,6 @@
 <head>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link rel="stylesheet" href="..\public\css\registration.css">
   <link rel="stylesheet" href="..\public\js\registration.js">
   <link rel="stylesheet" href="..\public\css\buttons.css">
@@ -14,37 +15,82 @@
   <body style="background-image: url(../public/images/bee_cells.jpg)">
       <div class="login-page" style="width: 70%;">
           <div class="form">
-            <form class="register-form">
-  
-              <input type="text" placeholder="name" required/>
-              <input type="text" placeholder="surname" required/>
-              <input type="text" placeholder="nickname" required/>
-              <input type="text" placeholder="email address" required/>
-              <input type="password" placeholder="password" required/>
-              <input type="password" placeholder="confirm_password" required/>
-  
-              <button>create</button>
-               <p class="message">Already registered? <a href="#">Sign In</a></p>
-            </form>
-            <form class="login-form">
+    
+            <form id="form">
               <div style="text-align: left;">
-                  <label for="">Name</label>
-                  <input type="text" />
-                  <label for="">Surname</label>
-                  <input type="text" />
-                  <label for="">Nickname</label>
-                  <input type="text" />
                   <label for="">Email</label>
-                  <input type="text" />
+                  <input type="text" name="email" required/>
+                  <label for="">Name</label>
+                  <input type="text" name="nome" required/>
+                  <label for="">Surname</label>
+                  <input type="text" name="cognome" required/>
+                  <label for="">Nickname</label>
+                  <input type="text" name="username" required/>
+                  <label for="">City</label>
+                  <select name="city">
+                    <option value="bergamo">bergamo</option>
+                    <option value="milano">milano</option>
+                  </select> <br>
                   <label for="">Password</label>
-                  <input type="password" />
+                  <input type="password" id="p1" name="password" required/>
                   <label for="">Confirm password</label>
-                  <input type="password" />
+                  <input type="password" id="p2" name="c_password" required/>
+
+                  <input type="submit">
+                
+                <div id="errore">
+          
+                </div>
               </div>
               
-              <a href="#" class="button orange">Register</a>
+              
              
             </form>
           </div>
         </div>
+
+       
   </body>
+
+  <script>
+    $( document ).ready(function() {
+        $("#form").submit(function(e) {
+
+
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+
+        
+          
+            if( document.getElementById("p1").value != document.getElementById("p2").value){
+                document.getElementById("errore").innerHTML = "Password are not the same";
+            } else{
+            console.log
+            richiesta("./test2.php", $( this ).serialize() ) } 
+
+            }); 
+    });
+
+    function richiesta(url, data){
+        $.ajax({
+                type: "GET",
+                url: url,
+                data: data, // serializes the form's elements.
+                
+                success: function(data)
+                {
+                    console.log(data);
+                    if(data == "ok"){
+
+                        document.getElementById("errore").innerHTML = data;
+                        alert("Succesufly registered");
+                        window.location.href = "./login.html"
+
+                    } else{
+                        document.getElementById("errore").innerHTML = data;
+                    }
+                   
+                }
+                
+            });
+    }
+</script>

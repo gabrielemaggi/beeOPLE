@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <title>Servizio di gestione delle allergie</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
@@ -50,15 +51,110 @@
           const markerb = new google.maps.Marker({position:berghem,map:map});
           const markerm = new google.maps.Marker({position:{lat: 45.4773, lng: 9.1815},map:map});
           const markermo = new google.maps.Marker({position:{lat: 45.5834,lng: 9.2759},map:map});
+          
+         
+
           markerb.addListener('click',function(){
-            confirm('this is Berghem,\n Do you want to go to the hive?');
+            var users = "";
+            
+            $.ajax({
+                  type: "GET",
+                  url: "./test4.php" + "?city=" + "bergamo",
+                   // serializes the form's elements.
+                  
+                  success: function(data)
+                  {
+                   
+                    if(!data.includes("no users found")){
+                      var x = JSON.parse(data);
+
+                      console.log(x);
+                      
+                      for(i = 0; i < x.length ; i++ ){
+                        users += x[i].username + " ";
+                      }
+
+                  
+                      confirm('this is Berghem,\n Do you want to go to the hive? there are: ' + users);
+ 
+                  }
+                    
+                  }
+                  
+              });
+            
           });
           markerm.addListener('click',function(){
-            confirm('this is Milan,\n Do you want to go to the hive?');
+            var users = "";
+            
+            $.ajax({
+                  type: "GET",
+                  url: "./test4.php" + "?city=" + "milano",
+                   // serializes the form's elements.
+                  
+                  success: function(data)
+                  {
+                   
+                   
+
+
+                    if(!data.includes("no users found") ){
+                      var x = JSON.parse(data);
+
+                      console.log(x);
+                      
+                      for(i = 0; i < x.length ; i++ ){
+                        users += x[i].username + " ";
+                      } 
+
+                      console.log(users)
+                      confirm('this is Milan,\n Do you want to go to the hive? there are: ' + users);
+ 
+                  } else{
+                        users = "no users"
+                        confirm('this is Milan,\n Do you want to go to the hive? there are: ' + users);
+                      }
+                    
+                  }
+                  
+              });
           });
           markermo.addListener('click',function(){
-            confirm('this is Monza.\n Do you want to go to the hive?');
+            var users = "";
+            
+            $.ajax({
+                  type: "GET",
+                  url: "./test4.php" + "?city=" + "monza",
+                   // serializes the form's elements.
+                  
+                  success: function(data)
+                  {
+                   
+                   
+
+
+                    if(!data.includes("no users found") ){
+                      var x = JSON.parse(data);
+
+                      console.log(x);
+                      
+                      for(i = 0; i < x.length ; i++ ){
+                        users += x[i].username + " ";
+                      } 
+
+                      console.log(users)
+                      confirm('this is Monza,\n Do you want to go to the hive? there are: ' + users);
+ 
+                  } else{
+                        users = "no users"
+                        confirm('this is Monza,\n Do you want to go to the hive? there are: ' + users);
+                      }
+                    
+                  }
+                  
+              });
           });
+        
         }
     </script>
     <div class="jumbotron jumbotron-fluid shadow"></div>
@@ -79,7 +175,7 @@
     </div>
     </div>
   </body>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+ 
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </html>

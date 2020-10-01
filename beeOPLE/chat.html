@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <title>API</title>
+            <head>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            </head>
+        </head>
+
+        <body>
+            <div id="container">
+                
+            </div>
+            <form>
+                <label> Segnalazione Fiore: </label>
+                <select name="fiore">
+                    <option value="graminacee">Graminacee</option>
+                    <option value="fioridicampo">fiori di campo</option>
+                </select>
+            
+                <input type="submit">
+            </form>
+            <div id="errore"></div>
+        </body>
+
+        <script>
+
+            $( document ).ready(function() {
+                $.ajax({
+                        type: "GET",
+                        url: ".test3.php",
+                        data: data, // serializes the form's elements.
+                        
+                        success: function(data)
+                        {
+                            console.log(data);
+                        }
+                        
+                    });
+            });
+
+
+
+            function creacard(){
+                var p = document.createElement("p");
+                var p2 = document.createElement("p2");
+
+
+                
+            }
+
+        </script>
+    </html>
