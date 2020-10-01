@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <title>Servizio di gestione delle allergie</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuD5x0HP7FTP9QXifdB0X3nWXPsB_f44Q&callback=initMap&libraries=&v=weekly"
+      defer
+    ></script>
+    <style type="text/css">
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 400px;
+        width: 100%;
+        margin-top: -350px;
+        border-radius: 5px;
+      }
+
+      /* Optional: Makes the sample page fill the window. */
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      .jumbotron {
+          height: 350px;
+          background: linear-gradient(-45deg, rgba(255,211,74,1) 0%, rgba(255,178,0,1) 35%, rgba(255,188,0,0.9192051820728291) 100%);
+          /*background: linear-gradient(-45deg, rgba(255,211,74,1) 0%, rgba(255,188,32,1) 35%, rgba(255,188,0,0.9192051820728291) 100%);
+          background-image: url("../public/images/bee_cells.jpg");*/
+          opacity: 0.91;
+      }
+
+    </style>
+  </head>
+  <body>
+    <script>
+        let map;
+        function initMap() {
+          let berghem = {
+              lat: 45.6989,
+              lng: 9.67,
+            };
+          map = new google.maps.Map(document.getElementById("map"), {
+            center: berghem,
+            zoom: 8,
+          });
+          const markerb = new google.maps.Marker({position:berghem,map:map});
+          const markerm = new google.maps.Marker({position:{lat: 45.4773, lng: 9.1815},map:map});
+          const markermo = new google.maps.Marker({position:{lat: 45.5834,lng: 9.2759},map:map});
+          markerb.addListener('click',function(){
+            confirm('this is Berghem,\n Do you want to go to the hive?');
+          });
+          markerm.addListener('click',function(){
+            confirm('this is Milan,\n Do you want to go to the hive?');
+          });
+          markermo.addListener('click',function(){
+            confirm('this is Monza.\n Do you want to go to the hive?');
+          });
+        }
+    </script>
+    <div class="jumbotron jumbotron-fluid shadow"></div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+              <div class="col-2"></div>
+              <div class="col-8"><div id="map" class="shadow"></div>
+              <div class="col-2"></div>
+        </div>
+        <div class="row" style="height: 200px; width: 100%;"></div>
+        <div class="row">
+          <div class="col-12" style="padding: 50px;">
+            <h1 class="display">Possible actions</h1>
+            <p class="lead">Deliver action to the public in the world broadcast</p>
+          </div> 
+        </div>
+    </div>
+    </div>
+  </body>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</html>
